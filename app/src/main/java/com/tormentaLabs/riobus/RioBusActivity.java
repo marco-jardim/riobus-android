@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.tormentaLabs.riobus.favorite.FavoriteActivity_;
+import com.tormentaLabs.riobus.history.fragment.HistoryFragment_;
 import com.tormentaLabs.riobus.map.MapFragment_;
 import com.tormentaLabs.riobus.utils.RioBusUtils;
 
@@ -45,9 +47,7 @@ public class RioBusActivity extends AppCompatActivity implements NavigationView.
     public void afterViews() {
         setupToolBar();
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new MapFragment_())
-                .commit();
+        showFragment(new MapFragment_());
     }
 
     private void setupToolBar() {
@@ -85,6 +85,9 @@ public class RioBusActivity extends AppCompatActivity implements NavigationView.
             case R.id.action_favorite:
                 openActivity(new FavoriteActivity_());
                 break;
+            case R.id.action_history:
+                showFragment(new HistoryFragment_());
+                break;
             case R.id.action_rate_this_app:
                 openPlayStore();
                 break;
@@ -94,6 +97,22 @@ public class RioBusActivity extends AppCompatActivity implements NavigationView.
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If the current fragment isn't the map, show the map again. Otherwise, quit.
+        if(!(getSupportFragmentManager().findFragmentById(R.id.content_frame) instanceof MapFragment_)){
+            showFragment(new MapFragment_());
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void showFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment, fragment.getTag())
+                .commit();
     }
 
     private void openActivity(AppCompatActivity activity) {

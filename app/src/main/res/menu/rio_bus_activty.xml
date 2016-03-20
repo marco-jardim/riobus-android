@@ -9,6 +9,8 @@
             app:showAsAction="withText|ifRoom" />
         <item android:id="@+id/action_favorite" android:title="@string/menu_favorite"
             android:checkable="true" android:icon="@drawable/ic_favorite" app:showAsAction="withText|ifRoom"/>
+        <item android:id="@+id/action_history" android:title="@string/menu_history"
+            android:checkable="true" android:icon="@drawable/ic_settings" app:showAsAction="withText|ifRoom"/>
         <item android:id="@+id/action_about" android:title="@string/menu_about" android:checkable="true"
             android:icon="@drawable/ic_help" app:showAsAction="withText|ifRoom"/>
         <item android:id="@+id/action_rate_this_app" android:title="@string/menu_rate_this_app"

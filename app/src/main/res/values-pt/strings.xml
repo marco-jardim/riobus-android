@@ -24,6 +24,7 @@
     <string name="menu_favorite">Favoritos</string>
     <string name="menu_rate_this_app">Avalie o Aplicativo</string>
     <string name="menu_settings">Configurações</string>
+    <string name="menu_history">Histórico</string>
     <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
     <string name="no_bus_found">Nenhum ônibus encontrado.</string>
