@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/RioBus.History"
-    android:id="@+id/history_fragment">
+    android:id="@+id/history_activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/riobusHistoryToolbar"
+        style="@style/RioBus.ToolBar"
+        android:elevation="@dimen/riobus_elevation"/>
 
     <ExpandableListView
+        android:layout_below="@id/riobusHistoryToolbar"
         android:id="@+id/historyListView"
         style="@style/RioBus.History.List" />
 
