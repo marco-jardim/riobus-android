@@ -33,7 +33,7 @@ public class BusModel {
     @JsonProperty("sense")
     private String sense;
 
-    @JsonProperty("timestamp")
+    @JsonProperty("timeStamp")
     private String timeStamp;
 
     public BusModel() {
