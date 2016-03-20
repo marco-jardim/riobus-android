@@ -62,7 +62,6 @@
     <string name="menu_rate_this_app">Rate this app</string>
     <string name="menu_favorite">Favorites</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_history">History</string>
 
     <!-- FAVORITE -->
     <string name="favorite_page_title">Favorites</string>
