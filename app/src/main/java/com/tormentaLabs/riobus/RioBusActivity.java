@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.tormentaLabs.riobus.favorite.FavoriteActivity_;
+import com.tormentaLabs.riobus.history.HistoryActivity;
+import com.tormentaLabs.riobus.history.HistoryActivity_;
 import com.tormentaLabs.riobus.map.MapFragment_;
 import com.tormentaLabs.riobus.utils.RioBusUtils;
 
@@ -84,6 +86,9 @@ public class RioBusActivity extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()) {
             case R.id.action_favorite:
                 openActivity(new FavoriteActivity_());
+                break;
+            case R.id.action_history:
+                openActivity(new HistoryActivity_());
                 break;
             case R.id.action_rate_this_app:
                 openPlayStore();
