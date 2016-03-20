@@ -55,6 +55,15 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RioBusActivity_"/>
         </activity>
+
+        <activity
+            android:name=".history.HistoryActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/history_page_title"
+            android:parentActivityName=".RioBusActivity_">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RioBusActivity_"/>
+        </activity>
     </application>
 
 </manifest>

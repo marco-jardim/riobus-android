@@ -1,6 +1,7 @@
-package com.tormentaLabs.riobus.history.fragment;
+package com.tormentaLabs.riobus.history;
 
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ExpandableListView;
 
 import com.tormentaLabs.riobus.R;
@@ -8,7 +9,7 @@ import com.tormentaLabs.riobus.history.adapter.HistoryListAdapter;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 /**
@@ -18,8 +19,11 @@ import org.androidannotations.annotations.ViewById;
  * Created at 24/10/15
  * @// TODO: 19/11/15 ADD Search and endless scroll list
  */
-@EFragment(R.layout.fragment_history)
-public class HistoryFragment extends Fragment {
+@EActivity(R.layout.activity_history)
+public class HistoryActivity extends AppCompatActivity {
+
+    @ViewById(R.id.riobusHistoryToolbar)
+    Toolbar rioBusToolBar;
 
     @ViewById(R.id.historyListView)
     ExpandableListView historyListView;
@@ -29,6 +33,8 @@ public class HistoryFragment extends Fragment {
 
     @AfterViews
     void afterViews() {
+        setSupportActionBar(rioBusToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         historyListView.setAdapter(historyListAdapter);
     }
 }
