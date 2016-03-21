@@ -10,7 +10,6 @@
     <string name="error_connection_internet">Não foi encontrada uma conexão com a internet.</string>
     <string name="error_connection_server">Não foi possível conectar ao servidor. Ele pode estar fora do ar ou você pode estar sem conexão.</string>
     <string name="favorite_page_title">Favoritos</string>
-    <string name="history_page_title">Histórico</string>
     <string name="line_number">Número da linha</string>
     <string name="marker_days">Atualizado há %1$s dia(s).</string>
     <string name="marker_hours">Atualizado há %1$s hora(s).</string>
@@ -32,7 +31,14 @@
     <string name="searching_data">Pesquisando…</string>
     <string name="text_sense">Sentido</string>
     <string name="text_unknown">Desconhecido</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- SEARCH -->
     <string name="search_page_title">Busca</string>
+
+    <!-- HISTORY -->
+    <string name="history_page_title">Histórico</string>
+    <string name="history_clear_dialog">Excluir histórico de buscas?</string>
+
 </resources>

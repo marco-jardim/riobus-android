@@ -74,5 +74,9 @@
 
     <!-- HISTORY -->
     <string name="history_page_title">History</string>
+    <string name="history_clear_dialog">Clear search history?</string>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
