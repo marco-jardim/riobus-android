@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.tormentaLabs.riobus.map.bean.MapComponent;
 import com.tormentaLabs.riobus.marker.utils.MarkerUtils;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 /**
@@ -43,7 +44,6 @@ public class UserMarkerComponent extends MapComponent implements
 
     @UiThread
     public void updateUserLocation() {
-
         if(!isApiReady) {
             setupGoogleApiClient();
             return;
@@ -53,8 +53,6 @@ public class UserMarkerComponent extends MapComponent implements
         if (currentLocation == null) return;
 
         LatLng position = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        if(getMap() == null) Log.e(TAG,"map");
-        if(position == null)Log.e(TAG, "pos");
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
         getMap().animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
 

@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tormentaLabs.riobus.R;
 import com.tormentaLabs.riobus.map.bean.MapComponent;
-import com.tormentaLabs.riobus.marker.adapter.BusInfoWindowAdapter;
+import com.tormentaLabs.riobus.marker.adapter.MarkerInfoWindowAdapter;
 import com.tormentaLabs.riobus.marker.model.BusModel;
 import com.tormentaLabs.riobus.marker.service.BusService;
 import com.tormentaLabs.riobus.marker.service.BusServiceErrorHandler;
@@ -61,9 +61,6 @@ public class BusMarkerConponent extends MapComponent {
     @Bean
     BusServiceErrorHandler busServiceErrorHandler;
 
-    @Bean
-    BusInfoWindowAdapter busInfoWindowAdapter;
-
     @AfterInject
     void afterInject() {
         busService.setRestErrorHandler(busServiceErrorHandler);
@@ -77,7 +74,6 @@ public class BusMarkerConponent extends MapComponent {
         isAutoUpdate = false;
         shutdownAutoUpdate();
         boundsBuilder = new LatLngBounds.Builder();
-        getMap().setInfoWindowAdapter(busInfoWindowAdapter);
         getBusesByLine();
     }
 
@@ -158,6 +154,7 @@ public class BusMarkerConponent extends MapComponent {
      */
     private MarkerOptions getMarker(BusModel bus) {
         MarkerOptions options = MarkerUtils.createMarker(bus.getLatitude(), bus.getLongitude());
+        options.title(bus.getLine());
         options.icon(getIcon(bus.getTimeStamp()));
         options.snippet(bus.toString());
         boundsBuilder.include(options.getPosition());

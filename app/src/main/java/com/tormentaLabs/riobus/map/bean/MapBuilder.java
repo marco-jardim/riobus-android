@@ -9,6 +9,7 @@ import com.tormentaLabs.riobus.map.listener.MapBuilderListener;
 import com.tormentaLabs.riobus.map.listener.MapComponentListener;
 import com.tormentaLabs.riobus.marker.BusMarkerConponent;
 import com.tormentaLabs.riobus.marker.UserMarkerComponent;
+import com.tormentaLabs.riobus.marker.adapter.MarkerInfoWindowAdapter;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -38,6 +39,9 @@ public class MapBuilder implements MapComponentListener {
 
     @Bean
     ItineraryComponent itineraryComponent;
+
+    @Bean
+    MarkerInfoWindowAdapter markerInfoWindowAdapter;
 
     /**
      * Method used to centralize the map on current user position
@@ -73,6 +77,7 @@ public class MapBuilder implements MapComponentListener {
 
     public MapBuilder setMap(GoogleMap map) {
         this.map = map;
+        map.setInfoWindowAdapter(markerInfoWindowAdapter);
         return this;
     }
 

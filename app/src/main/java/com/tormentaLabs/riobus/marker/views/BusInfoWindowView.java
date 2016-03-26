@@ -28,7 +28,7 @@ import java.util.TimeZone;
  * @since 3.0.0
  * Created on 26/03/16
  */
-@EViewGroup(R.layout.info_window_layout)
+@EViewGroup(R.layout.view_info_window_bus)
 public class BusInfoWindowView extends RelativeLayout {
 
     private static final String TAG = BusInfoWindowView_.class.getName();

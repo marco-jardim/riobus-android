@@ -21,7 +21,6 @@ import com.tormentaLabs.riobus.favorite.FavoriteActivity_;
 import com.tormentaLabs.riobus.map.MapFragment;
 import com.tormentaLabs.riobus.history.HistoryActivity_;
 import com.tormentaLabs.riobus.map.MapFragment_;
-import com.tormentaLabs.riobus.search.utils.SearchUtils;
 import com.tormentaLabs.riobus.utils.RioBusUtils;
 
 import org.androidannotations.annotations.AfterViews;
