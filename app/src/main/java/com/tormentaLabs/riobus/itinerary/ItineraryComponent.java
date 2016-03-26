@@ -1,12 +1,10 @@
 package com.tormentaLabs.riobus.itinerary;
 
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tormentaLabs.riobus.R;
 import com.tormentaLabs.riobus.core.controller.LineController;
-import com.tormentaLabs.riobus.core.model.LineModel;
 import com.tormentaLabs.riobus.itinerary.model.ItineraryModel;
 import com.tormentaLabs.riobus.itinerary.model.SpotModel;
 import com.tormentaLabs.riobus.itinerary.service.ItineraryService;
@@ -34,6 +32,7 @@ public class ItineraryComponent extends MapComponent {
     private static final String TAG = ItineraryComponent_.class.getName();
     private static final float LINE_WIDTH = 12;
     private Polyline polyline = null;
+    ItineraryModel itinerary;
 
     @RestService
     ItineraryService itineraryService;
@@ -51,22 +50,13 @@ public class ItineraryComponent extends MapComponent {
 
     @Background
     void getItineraries(){
-        ItineraryModel itinerary = itineraryService.getItinarary(getQuery());
+        itinerary = itineraryService.getItinarary(getLine().number);
 
-        if(itinerary == null)
-            return;
+        if(itinerary == null) return;
 
-        LineModel line = lineController.createIfNotExists(itinerary.getLine());
-        line.description = itinerary.getDescription();
-        line.save();
-        setLine(line);
+        getLine().description = itinerary.getDescription();
+        getLine().save();
 
-        ArrayList<LatLng> spots = new ArrayList<>();
-        for(SpotModel spot : itinerary.getSpots()) {
-            LatLng position = new LatLng(spot.getLatitude(), spot.getLongitude());
-            spots.add(position);
-        }
-        drawItinerary(spots);
         getListener().onComponentMapReady(TAG);
     }
 
@@ -80,11 +70,24 @@ public class ItineraryComponent extends MapComponent {
     }
 
     @Override
-    public void buildComponent() {
+    public void prepareComponent() {
         removeComponent();
         getItineraries();
     }
 
+    @Override
+    public void buildComponent() {
+        if(itinerary == null) return;
+        ArrayList<LatLng> spots = new ArrayList<>();
+        for(SpotModel spot : itinerary.getSpots()) {
+            LatLng position = new LatLng(spot.getLatitude(), spot.getLongitude());
+            spots.add(position);
+        }
+        drawItinerary(spots);
+        getListener().onComponentBuildComplete(TAG);
+    }
+
+    @UiThread
     @Override
     public void removeComponent() {
         if(polyline != null && polyline.isVisible())

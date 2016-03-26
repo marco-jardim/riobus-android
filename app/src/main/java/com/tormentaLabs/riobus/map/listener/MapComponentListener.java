@@ -10,6 +10,11 @@ public interface MapComponentListener {
     public void onComponentMapReady(String componentId);
 
     /**
+     * @param componentId component class name
+     */
+    public void onComponentBuildComplete(String componentId);
+
+    /**
      * @param errorMsg
      * @param componentId component class name
      */

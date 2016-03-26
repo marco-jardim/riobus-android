@@ -21,11 +21,13 @@ import org.androidannotations.annotations.EBean;
  * @author limazix
  * @since 3.0.0
  * Created on 25/03/16
+ * TODO create a register to sort the components prepare and build order
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class MapBuilder implements MapComponentListener {
 
     private static final String TAG = MapBuilder.class.getName();
+    private static final int FIRST_ITEM_INDEX = 0;
     private String query;
     private LineModel line;
     private GoogleMap map;
@@ -57,18 +59,59 @@ public class MapBuilder implements MapComponentListener {
      * Method to be called to start the construction process of the map's components
      */
     public void buildMap() {
-        buildNextComponent(itineraryComponent);
+        line = null;
+        prepareNextComponent(busMapComponent);
     }
 
-    private void buildNextComponent(MapComponent component) {
+    private void prepareNextComponent(MapComponent component) {
         if(line == null)
             component.setQuery(query);
         else
             component.setLine(line);
 
         component.setMap(map)
-                    .setListener(this)
-                    .buildComponent();
+                .setListener(this)
+                .prepareComponent();
+    }
+
+    private void buildNextComponent(MapComponent component) {
+        component.buildComponent();
+    }
+
+    @Override
+    public void onComponentMapReady(String componentId) {
+        if(componentId.equals(busMapComponent.getClass().getName())) {
+            if(busMapComponent.getLines().size() > 1) {
+                line = null;
+                buildNextComponent(busMapComponent);
+            } else {
+                line = busMapComponent.getLines().get(FIRST_ITEM_INDEX);
+                itineraryComponent.setLine(line);
+                prepareNextComponent(itineraryComponent);
+            }
+        } else if(componentId.equals(itineraryComponent.getClass().getName())) {
+            buildNextComponent(busMapComponent);
+        } else if(componentId.equals(userMarkerComponent.getClass().getName())) {
+            listener.onCenterComplete();
+        }
+    }
+
+    @Override
+    public void onComponentBuildComplete(String componentId) {
+        if(componentId.equals(busMapComponent.getClass().getName())) {
+            if(busMapComponent.getLines().size() > 1) listener.onMapBuilderComplete();
+            else buildNextComponent(itineraryComponent);
+        } else if(componentId.equals(itineraryComponent.getClass().getName())) {
+            listener.onMapBuilderComplete();
+        } else if(componentId.equals(userMarkerComponent.getClass().getName())) {
+            listener.onCenterComplete();
+        }
+    }
+
+    @Override
+    public void onComponentMapError(String errorMsg, String componentId) {
+        Log.e(TAG, componentId);
+        listener.onMapBuilderError(errorMsg);
     }
 
     public GoogleMap getMap() {
@@ -104,21 +147,4 @@ public class MapBuilder implements MapComponentListener {
         return this;
     }
 
-    @Override
-    public void onComponentMapReady(String componentId) {
-        if(componentId.equals(itineraryComponent.getClass().getName())) {
-            line = itineraryComponent.getLine();
-            buildNextComponent(busMapComponent);
-        } else if(componentId.equals(busMapComponent.getClass().getName())) {
-            listener.onMapBuilderComplete();
-        } else if(componentId.equals(userMarkerComponent.getClass().getName())) {
-            listener.onCenterComplete();
-        }
-    }
-
-    @Override
-    public void onComponentMapError(String errorMsg, String componentId) {
-        Log.e(TAG, componentId);
-        listener.onMapBuilderError(errorMsg);
-    }
 }

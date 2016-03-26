@@ -63,6 +63,11 @@ public class UserMarkerComponent extends MapComponent implements
     }
 
     @Override
+    public void prepareComponent() {
+
+    }
+
+    @Override
     public void buildComponent() {
          setupGoogleApiClient();
     }

@@ -147,10 +147,11 @@ public class MapFragment extends Fragment implements MapBuilderListener {
     @UiThread
     @Override
     public void onMapBuilderComplete() {
+        setProgressVisibility(View.GONE);
+        if(mapBuilder.getLine() == null) return;
         historyController.addLine(mapBuilder.getLine().number);
         lineMapControllerView.setVisibility(View.VISIBLE);
         lineMapControllerView.build(mapBuilder.getLine());
-        setProgressVisibility(View.GONE);
     }
 
     @UiThread
