@@ -13,15 +13,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.tormentaLabs.riobus.R;
 import com.tormentaLabs.riobus.core.controller.LineController;
-import com.tormentaLabs.riobus.core.model.LineModel;
 import com.tormentaLabs.riobus.history.controller.HistoryController;
-import com.tormentaLabs.riobus.itinerary.ItineraryComponent;
-import com.tormentaLabs.riobus.map.listener.MapComponentListener;
+import com.tormentaLabs.riobus.map.bean.MapBuilder;
+import com.tormentaLabs.riobus.map.listener.MapBuilderListener;
 import com.tormentaLabs.riobus.map.utils.MapPrefs_;
 import com.tormentaLabs.riobus.map.utils.MapUtils;
 import com.tormentaLabs.riobus.map.view.LineMapControllerView;
-import com.tormentaLabs.riobus.marker.BusMarkerConponent;
-import com.tormentaLabs.riobus.marker.UserMarkerComponent;
 import com.tormentaLabs.riobus.search.SearchActivity_;
 import com.tormentaLabs.riobus.search.utils.SearchUtils;
 
@@ -43,7 +40,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  */
 @OptionsMenu(R.menu.map_fragment)
 @EFragment(R.layout.fragment_map)
-public class MapFragment extends Fragment implements MapComponentListener {
+public class MapFragment extends Fragment implements MapBuilderListener {
 
     private static final String TAG = MapFragment_.class.getName();
     private GoogleMap map;
@@ -53,13 +50,7 @@ public class MapFragment extends Fragment implements MapComponentListener {
     MapPrefs_ mapPrefs;
 
     @Bean
-    BusMarkerConponent busMapComponent;
-
-    @Bean
-    UserMarkerComponent userMarkerComponent;
-
-    @Bean
-    ItineraryComponent itineraryComponent;
+    MapBuilder mapBuilder;
 
     @Bean
     HistoryController historyController;
@@ -75,7 +66,6 @@ public class MapFragment extends Fragment implements MapComponentListener {
 
     @OptionsMenuItem(R.id.search)
     MenuItem menuSearch;
-    private LineModel line;
 
     @AfterViews
     public void afterViews() {
@@ -83,10 +73,6 @@ public class MapFragment extends Fragment implements MapComponentListener {
         mapFragment = getMapFragment();
         map = mapFragment.getMap();
         setupMap();
-
-        userMarkerComponent.setMap(map)
-                .setListener(this)
-                .buildComponent();
     }
 
     /**
@@ -99,6 +85,10 @@ public class MapFragment extends Fragment implements MapComponentListener {
             map.setTrafficEnabled(mapPrefs.isMapTrafficEnable().get());
         }
         map.setMyLocationEnabled(mapPrefs.isMapMyLocationEnable().get());
+
+        mapBuilder.setMap(map)
+                .setListener(this)
+                .centerOnUser();
     }
 
     /**
@@ -116,7 +106,7 @@ public class MapFragment extends Fragment implements MapComponentListener {
 
     @Click(R.id.userPositionButton)
     void updateUserLocation() {
-        userMarkerComponent.updateUserLocation();
+        mapBuilder.centerOnUser();
     }
 
     @OptionsItem(R.id.search)
@@ -131,6 +121,7 @@ public class MapFragment extends Fragment implements MapComponentListener {
         if(requestCode == Activity.DEFAULT_KEYS_SEARCH_GLOBAL) {
             if(resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra(SearchUtils.EXTRA_SEARCH_RESULT);
+                getActivity().setTitle(result);
                 buildBusLineMap(result);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Log.e(TAG, "search canceled");
@@ -138,41 +129,34 @@ public class MapFragment extends Fragment implements MapComponentListener {
         }
     }
 
-    private void buildLineMapControllerView() {
-    }
-
-    @UiThread
-    @Override
-    public void onComponentMapReady(String componentId) {
-        //TODO workaround
-        if(line != null && line.description != null) {
-            lineMapControllerView.setVisibility(View.VISIBLE);
-            lineMapControllerView.build(line);
-        }
-        setProgressVisibility(View.GONE);
-    }
-
-    @UiThread
-    @Override
-    public void onComponentMapError(String errorMsg, String componentId) {
-        setProgressVisibility(View.GONE);
-        Snackbar.make(getView(), errorMsg, Snackbar.LENGTH_LONG).show();
-    }
-
     // TODO do something when it is not valid
     private void buildBusLineMap(String keyword) {
         if (MapUtils.isValidString(keyword)) {
-            line = historyController.addLine(keyword);
-            busMapComponent.setLine(line)
-                    .setListener(this)
+            setProgressVisibility(View.VISIBLE);
+            mapBuilder.setQuery(keyword)
                     .setMap(map)
-                    .buildComponent();
-
-            itineraryComponent.setLine(line)
-                    .setListener(this)
-                    .setMap(map)
-                    .buildComponent();
+                    .buildMap();
         }
     }
 
+    @Override
+    public void onCenterComplete() {
+        setProgressVisibility(View.GONE);
+    }
+
+    @UiThread
+    @Override
+    public void onMapBuilderComplete() {
+        historyController.addLine(mapBuilder.getLine().number);
+        lineMapControllerView.setVisibility(View.VISIBLE);
+        lineMapControllerView.build(mapBuilder.getLine());
+        setProgressVisibility(View.GONE);
+    }
+
+    @UiThread
+    @Override
+    public void onMapBuilderError(String errorMsg) {
+        setProgressVisibility(View.GONE);
+        Snackbar.make(getView(), errorMsg, Snackbar.LENGTH_LONG).show();
+    }
 }

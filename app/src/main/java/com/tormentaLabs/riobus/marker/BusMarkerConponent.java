@@ -44,7 +44,7 @@ import java.util.List;
 @EBean
 public class BusMarkerConponent extends MapComponent {
 
-    private static final String TAG = BusMarkerConponent.class.getName();
+    private static final String TAG = BusMarkerConponent_.class.getName();
     private static final String BUSES_UPDATE_THREAD_ID = "auto_update";
     private static final String GET_BUSES_THREAD_ID = "get_buses";
 
@@ -69,6 +69,7 @@ public class BusMarkerConponent extends MapComponent {
 
     private LatLngBounds.Builder boundsBuilder;
 
+    @UiThread
     @Override
     public void buildComponent() {
         isAutoUpdate = false;

@@ -53,6 +53,8 @@ public class UserMarkerComponent extends MapComponent implements
         if (currentLocation == null) return;
 
         LatLng position = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        if(getMap() == null) Log.e(TAG,"map");
+        if(position == null)Log.e(TAG, "pos");
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13));
         getMap().animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
 
@@ -64,7 +66,7 @@ public class UserMarkerComponent extends MapComponent implements
 
     @Override
     public void buildComponent() {
-        setupGoogleApiClient();
+         setupGoogleApiClient();
     }
 
     @Override

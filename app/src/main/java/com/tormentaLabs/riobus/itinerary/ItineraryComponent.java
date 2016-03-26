@@ -1,11 +1,12 @@
 package com.tormentaLabs.riobus.itinerary;
 
-import android.graphics.Color;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tormentaLabs.riobus.R;
+import com.tormentaLabs.riobus.core.controller.LineController;
+import com.tormentaLabs.riobus.core.model.LineModel;
 import com.tormentaLabs.riobus.itinerary.model.ItineraryModel;
 import com.tormentaLabs.riobus.itinerary.model.SpotModel;
 import com.tormentaLabs.riobus.itinerary.service.ItineraryService;
@@ -30,12 +31,15 @@ import java.util.ArrayList;
 @EBean
 public class ItineraryComponent extends MapComponent {
 
-    private static final String TAG = ItineraryComponent.class.getName();
+    private static final String TAG = ItineraryComponent_.class.getName();
     private static final float LINE_WIDTH = 12;
     private Polyline polyline = null;
 
     @RestService
     ItineraryService itineraryService;
+
+    @Bean
+    LineController lineController;
 
     @Bean
     ItineraryServiceErrorHandler itineraryServiceErrorHandler;
@@ -47,12 +51,15 @@ public class ItineraryComponent extends MapComponent {
 
     @Background
     void getItineraries(){
-        ItineraryModel itinerary = itineraryService.getItinarary(getLine().number);
+        ItineraryModel itinerary = itineraryService.getItinarary(getQuery());
 
         if(itinerary == null)
             return;
-        getLine().description = itinerary.getDescription();
-        getLine().save();
+
+        LineModel line = lineController.createIfNotExists(itinerary.getLine());
+        line.description = itinerary.getDescription();
+        line.save();
+        setLine(line);
 
         ArrayList<LatLng> spots = new ArrayList<>();
         for(SpotModel spot : itinerary.getSpots()) {

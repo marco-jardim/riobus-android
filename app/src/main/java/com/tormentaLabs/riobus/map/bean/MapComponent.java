@@ -21,12 +21,22 @@ public abstract class MapComponent {
     @RootContext
     public Context context;
 
+    private String query;
     private LineModel line;
     private MapComponentListener listener;
     private GoogleMap map;
 
     public Context getContext() {
         return context;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public MapComponent setQuery(String query) {
+        this.query = query;
+        return this;
     }
 
     public LineModel getLine() {
@@ -59,4 +69,5 @@ public abstract class MapComponent {
     public abstract void buildComponent();
 
     public abstract void removeComponent();
+
 }
