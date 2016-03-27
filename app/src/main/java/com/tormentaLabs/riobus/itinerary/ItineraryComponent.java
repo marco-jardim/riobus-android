@@ -1,5 +1,7 @@
 package com.tormentaLabs.riobus.itinerary;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -61,7 +63,7 @@ public class ItineraryComponent extends MapComponent {
         getListener().onComponentMapReady(TAG);
     }
 
-    @UiThread
+    @UiThread(propagation = UiThread.Propagation.ENQUEUE)
     void drawItinerary(ArrayList<LatLng> spots) {
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.addAll(spots);
@@ -88,10 +90,11 @@ public class ItineraryComponent extends MapComponent {
             }
         }
         drawItinerary(spots);
-        getListener().onComponentBuildComplete(TAG);
+        if(!isBuildcomplete()) getListener().onComponentBuildComplete(TAG);
+        setIsBuildcomplete(true);
     }
 
-    @UiThread
+    @UiThread(propagation = UiThread.Propagation.REUSE)
     @Override
     public void removeComponent() {
         if(polyline != null && polyline.isVisible())

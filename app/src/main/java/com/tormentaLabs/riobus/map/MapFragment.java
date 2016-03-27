@@ -109,6 +109,12 @@ public class MapFragment extends Fragment implements MapBuilderListener {
         mapBuilder.centerOnUser();
     }
 
+    @Click(R.id.changeSenseButton)
+    void changeSense() {
+        mapBuilder.toggleSense();
+        lineMapControllerView.toggleSense();
+    }
+
     @OptionsItem(R.id.search)
     boolean menuSearch() {
         Intent i = new Intent(getActivity(), SearchActivity_.class);

@@ -78,7 +78,6 @@ public class BusMarkerConponent extends MapComponent {
         return lines;
     }
 
-    @UiThread
     @Override
     public void prepareComponent() {
         isAutoUpdate = false;
@@ -92,7 +91,8 @@ public class BusMarkerConponent extends MapComponent {
         removeMarkers();
         addMarkers(buses);
         autoUpdateBusesPosition();
-        getListener().onComponentBuildComplete(TAG);
+        if(!isBuildcomplete()) getListener().onComponentBuildComplete(TAG);
+        setIsBuildcomplete(true);
     }
 
     @Override

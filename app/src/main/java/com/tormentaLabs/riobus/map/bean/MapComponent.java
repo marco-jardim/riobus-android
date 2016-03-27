@@ -27,9 +27,18 @@ public abstract class MapComponent {
     private GoogleMap map;
     private String sense;
     private boolean reverseSense = false;
+    private boolean isBuildcomplete = false;
 
     public Context getContext() {
         return context;
+    }
+
+    public boolean isBuildcomplete() {
+        return isBuildcomplete;
+    }
+
+    public void setIsBuildcomplete(boolean isBuildcomplete) {
+        this.isBuildcomplete = isBuildcomplete;
     }
 
     public boolean isReverseSense() {
