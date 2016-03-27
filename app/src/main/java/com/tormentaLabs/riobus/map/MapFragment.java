@@ -20,7 +20,7 @@ import com.tormentaLabs.riobus.map.listener.MapComponentListener;
 import com.tormentaLabs.riobus.map.utils.MapPrefs_;
 import com.tormentaLabs.riobus.map.utils.MapUtils;
 import com.tormentaLabs.riobus.map.view.LineMapControllerView;
-import com.tormentaLabs.riobus.marker.BusMarkerConponent;
+import com.tormentaLabs.riobus.marker.BusMarkerComponent;
 import com.tormentaLabs.riobus.marker.UserMarkerComponent;
 import com.tormentaLabs.riobus.search.SearchActivity_;
 import com.tormentaLabs.riobus.search.utils.SearchUtils;
@@ -53,7 +53,7 @@ public class MapFragment extends Fragment implements MapComponentListener {
     MapPrefs_ mapPrefs;
 
     @Bean
-    BusMarkerConponent busMapComponent;
+    BusMarkerComponent busMapComponent;
 
     @Bean
     UserMarkerComponent userMarkerComponent;
