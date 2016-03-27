@@ -1,26 +1,242 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowNoTitle">true</item>
+    <style name="RioBus" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/riobus_primary_dark</item>
+        <item name="colorPrimary">@color/riobus_primary</item>
+        <item name="colorPrimaryDark">@color/riobus_primary_dark</item>
+        <item name="android:textColorPrimary">@color/riobus_primary_text</item>
+        <item name="android:textColorSecondary">@color/riobus_secondary_text</item>
+        <item name="android:windowBackground">@color/riobus_window_background</item>
+        <item name="android:textColor">@color/riobus_text</item>
     </style>
 
-    <style name="search_map">
-        <item name="android:background">@drawable/rounded_corners_white</item>
+    <style name="RioBus.ToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/riobus_primary</item>
+    </style>
+
+    <style name="RioBus.Navigation">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="RioBus.Navigation.View">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+    </style>
+
+    <style name="RioBus.Navigation.Header">
+        <item name="android:padding">@dimen/riobus_spacing_middle</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/drawer_header_bg</item>
+    </style>
+
+    <style name="RioBus.Navigation.Header.Icon">
+        <item name="android:background">@null</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:src">@drawable/logo_transparent</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="RioBus.Navigation.Header.Title">
+        <item name="android:background">@null</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">@string/app_name</item>
+        <item name="android:textSize">10pt</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="RioBus.Map">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="RioBus.Map.ProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_margin">15dp</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:drawableRight">@drawable/ic_action_search</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:max">100</item>
+        <item name="android:indeterminate">true</item>
     </style>
 
-    <style name="botao">
-        <item name="android:background">@drawable/rounded_corners_white</item>
-        <item name="android:layout_alignParentBottom">true</item>
+    <style name="RioBus.Map.FloatPositionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_location_on</item>
+        <item name="android:layout_marginBottom">@dimen/riobus_spacing_middle</item>
+        <item name="android:layout_marginRight">@dimen/riobus_spacing_middle</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_margin">15dp</item>
     </style>
+
+    <style name="RioBus.LineView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:padding">@dimen/riobus_spacing_middle</item>
+    </style>
+
+    <style name="RioBus.LineView.ChangeSense">
+        <item name="android:tint">@color/riobus_text</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="RioBus.LineView.HorizontalScrollable">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="RioBus.History">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="RioBus.History.List">
+        <item name="android:theme">@style/Base.Theme.AppCompat.Light</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_margin">@dimen/riobus_spacing_short</item>
+    </style>
+
+    <style name="RioBus.History.Group">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/riobus_spacing_middle</item>
+        <item name="android:textColor">#2d2d2d</item>
+    </style>
+
+    <style name="RioBus.History.Group.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="RioBus.History.Group.Item">
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="RioBus.History.Group.Item.Icon">
+        <item name="android:tint">@color/riobus_text</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_width">@dimen/riobus_icon_medium_size</item>
+        <item name="android:layout_height">@dimen/riobus_icon_medium_size</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="RioBus.History.Group.Item.Title">
+    </style>
+
+    <style name="RioBus.History.Group.Item.Date">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="RioBus.Favorite">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="RioBus.Favorite.Star">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/riobus_spacing_short</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:tint">@color/riobus_star_golden</item>
+    </style>
+
+    <style name="RioBus.Favorite.List">
+        <item name="android:layout_margin">@dimen/riobus_spacing_short</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="RioBus.Favorite.List.ListItem">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="RioBus.Favorite.List.Line">
+        <item name="android:layout_marginTop">@dimen/riobus_spacing_short</item>
+        <item name="android:layout_marginLeft">@dimen/riobus_spacing_short</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_margin">0dp</item>
+
+    </style>
+
+    <style name="RioBus.Favorite.List.Description">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/riobus_spacing_short</item>
+        <item name="android:layout_marginTop">@dimen/riobus_spacing_short</item>
+    </style>
+
+    <style name="RioBus.Favorite.List.Star">
+        <item name="android:layout_width">@dimen/riobus_icon_medium_size</item>
+        <item name="android:layout_height">@dimen/riobus_icon_medium_size</item>
+    </style>
+
+    <!-- SEARCH -->
+    <style name="RioBus.Search">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/riobus_spacing_middle</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions.List">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions.List.Item">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_margin">@dimen/riobus_spacing_middle</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions.List.Item.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions.List.Item.SubTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="RioBus.Search.Suggestions.List.Item.Icon">
+        <item name="android:layout_width">@dimen/riobus_icon_small_size</item>
+        <item name="android:layout_height">@dimen/riobus_icon_small_size</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:tint">@color/riobus_text</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <!-- END SEARCH -->
 
 </resources>

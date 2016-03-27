@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RioBus.LineView">
+
+    <ImageButton
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:id="@+id/changeSenseButton"
+        android:src="@drawable/ic_swap_calls_black"
+        style="@style/RioBus.LineView.ChangeSense"/>
+
+    <TextView
+        android:id="@+id/firstLineEndPoint"
+        android:layout_toRightOf="@id/changeSenseButton"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/favoriteStarView"
+        android:layout_toStartOf="@+id/favoriteStarView"
+        style="@style/RioBus.LineView.HorizontalScrollable" />
+
+    <TextView
+        android:id="@+id/secondLineEndPoint"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/changeSenseButton"
+        android:layout_toLeftOf="@+id/favoriteStarView"
+        android:layout_toStartOf="@+id/favoriteStarView"
+        style="@style/RioBus.LineView.HorizontalScrollable"/>
+
+    <com.tormentaLabs.riobus.favorite.view.FavoriteStarView_
+        android:id="@+id/favoriteStarView"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_toRightOf="@id/changeSenseButton"
+        android:layout_centerInParent="true"
+        android:background="@color/riobus_text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_toLeftOf="@id/favoriteStarView"/>
+
+</RelativeLayout>

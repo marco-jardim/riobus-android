@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="riobus_window_background">#ffffff</color>
+    <color name="riobus_primary">#4ea7f5</color>
+    <color name="riobus_primary_dark">#2b7ed8</color>
+    <color name="riobus_primary_light">#2bd4d8</color>
+    <color name="riobus_accent">#2bd85a</color>
+    <color name="riobus_primary_text">#ffffff</color>
+    <color name="riobus_secondary_text">#ffffff</color>
+    <color name="riobus_text">#868686</color>
+    <color name="riobus_icons">#ffffff</color>
+    <color name="riobus_divider">#b6b6b6</color>
+    <color name="riobus_star_golden">#f2af29</color>
+</resources>

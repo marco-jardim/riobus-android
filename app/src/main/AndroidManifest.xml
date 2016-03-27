@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tormentaLabs.riobus">
+    package="com.tormentaLabs.riobus" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,28 +10,69 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:allowBackup="true"
+        android:name="com.activeandroid.app.Application"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        android:theme="@style/RioBus">
+
+        <provider android:authorities="com.tormentaLabs.riobus"
+            android:exported="false"
+            android:name="com.activeandroid.content.ContentProvider" />
+
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.tormentaLabs.riobus.core.model.LineModel,
+            com.tormentaLabs.riobus.history.model.HistoryModel,
+            com.tormentaLabs.riobus.favorite.model.FavoriteModel" />
+
+        <meta-data android:name="AA_DB_NAME" android:value="RioBus.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".RioBusActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_rio_bus"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".favorite.FavoriteActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/favorite_page_title"
+            android:parentActivityName=".RioBusActivity_">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RioBusActivity_"/>
+        </activity>
+
+        <activity
+            android:name=".search.SearchActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/search_page_title"
+            android:parentActivityName=".RioBusActivity_">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RioBusActivity_"/>
+        </activity>
+
+        <activity
+            android:name=".history.HistoryActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/history_page_title"
+            android:parentActivityName=".RioBusActivity_">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RioBusActivity_"/>
+        </activity>
     </application>
-
-
 
 </manifest>

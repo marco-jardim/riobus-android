@@ -3,24 +3,24 @@
 
     <string name="app_name">Rio Bus</string>
     <string name="title_activity_main">Rio Bus</string>
-    <string name="searching_data">Buscando linha…</string>
-    <string name="line_number">Número da linha</string>
-    <string name="about_title">Sobre o RioBus</string>
+    <string name="searching_data">Searching data...</string>
+    <string name="line_number">Line number</string>
+    <string name="about_title">About RioBus</string>
 
-    <string name="error_connection_internet">Não foi encontrada uma conexão com a internet.</string>
-    <string name="error_connection_gps">Não foi possível identificar sua localização.</string>
-    <string name="error_connection_server">Não foi possível conectar ao servidor. Ele pode estar fora do ar ou você pode estar sem conexão.</string>
-    <string name="error_bus_404">O ônibus solicitado não foi encontrado. Talvez ele não exista ou os dados estão fora do ar temporariamente.</string>
+    <string name="error_connection_internet">No connection with internet was found.</string>
+    <string name="error_connection_gps">Error finding your location.</string>
+    <string name="error_connection_server">It was not possible to connect to the server. It may be having technical issues or you may have lost your connection.</string>
+    <string name="error_bus_404">Bus not found. Maybe the bus does not exist or the data may be not working.</string>
 
-    <string name="marker_user">Você está aqui</string>
+    <string name="marker_user">You are here.</string>
     <string name="marker_title">%1$s (%2$s)</string>
-    <string name="marker_seconds">Atualizado há %1$s segundo(s)</string>
-    <string name="marker_minutes">Atualizado há %1$s minuto(s)</string>
-    <string name="marker_hours">Atualizado há %1$s hora(s)</string>
-    <string name="marker_days">Atualizado há %1$s dia(s)</string>
-    <string name="marker_velocity">Velocidade: %1$s Km/h</string>
-    <string name="marker_sense">Sentido: %1$s</string>
-    <string name="marker_sense_null">desconhecido</string>
+    <string name="marker_seconds">Updated %1$s second(s) ago.</string>
+    <string name="marker_minutes">Updated %1$s minute(s) ago.</string>
+    <string name="marker_hours">Updated %1$s hour(s) ago.</string>
+    <string name="marker_days">Updated %1$s day(s) ago.</string>
+    <string name="marker_velocity">Speed: %1$s Km/h</string>
+    <string name="marker_sense">Sense: %1$s</string>
+    <string name="marker_sense_null">unknown</string>
 
     <string name="about_text">
         <![CDATA[
@@ -43,5 +43,41 @@
 
         ]]>
     </string>
+
+
+    <string name="title_activity_rio_bus_activty">RioBusActivty</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_rio_bus">RioBus</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="server_addr_v3">http://rest.riob.us/</string>
+
+    <string name="no_bus_found">No bus found.</string>
+
+    <!-- MENU -->
+    <string name="menu_about">About</string>
+    <string name="menu_rate_this_app">Rate this app</string>
+    <string name="menu_favorite">Favorites</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_history">History</string>
+
+    <!-- FAVORITE -->
+    <string name="favorite_page_title">Favorites</string>
+    <string name="text_sense">Sense</string>
+    <string name="text_unknown">Unknown</string>
+
+    <!-- SEARCH -->
+    <string name="search_page_title">Search</string>
+
+    <!-- HISTORY -->
+    <string name="history_page_title">History</string>
+    <string name="history_clear_dialog">Clear history?</string>
+
+    <!-- DIALOG -->
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

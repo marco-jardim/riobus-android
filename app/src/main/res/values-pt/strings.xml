@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rio Bus</string>
+    <string name="about_text"><![CDATA[          <p>O RioBus é um sistema colaborativo de monitoramento de ônibus em tempo real, que utiliza a API de dados abertos de mobilidade urbana fornecida pela parceria entre a Prefeitura do Rio de Janeiro e a FETRANSPOR. Seu objetivo principal é ajudar o cidadão do Rio de Janeiro, seja ele morador ou visitante, a se deslocar pela cidade.</p>         <p>O serviço é desenvolvido de forma colaborativa, e por isso depende da sua ajuda para melhorar, seja dando apenas um feedback ou aprimorando o código.</p>          <h3>Como funciona?</h3>         <p>Basta digitar a linha do ônibus que você deseja encontrar na caixa de busca e a posição de cada carro aparecerá no mapa. Além disso, você pode ver mais informações sobre o ônibus ao clicar sobre o marcador.</p>          <h3>Legenda dos marcadores</h3>         <p>             <b>Verde:</b> atualizado há menos de 5 min <br>             <b>Amarelo:</b> atualizado entre 5 e 10 min atrás <br>             <b>Vermelho:</b> atualizado há mais de 10 min         </p>          <h3>Gostou do projeto?</h3>         <p>Você pode colaborar com o projeto sempre nos enviando suas críticas e sugestões através da nossa página no <a href="https://www.facebook.com/RioBusOficial">Facebook</a>. Ou então, caso você seja o tipo que prefere pôr a mão na massa, pode nos ajudar a aprimorar o nosso código, que está hospedado publicamente no <a href="https://github.com/riobus">Github</a>. O código está licensiado sob a licença GNU GPL v2, isso quer dizer que você pode alterar e reutilizar à vontade!</p>          ]]></string>
+    <string name="about_title">Sobre o RioBus</string>
+    <string name="drawer_close">Fechar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="error_bus_404">O ônibus solicitado não foi encontrado. Talvez ele não exista ou os dados estão fora do ar temporariamente.</string>
+    <string name="error_connection_gps">Não foi possível identificar sua localização.</string>
+    <string name="error_connection_internet">Não foi encontrada uma conexão com a internet.</string>
+    <string name="error_connection_server">Não foi possível conectar ao servidor. Ele pode estar fora do ar ou você pode estar sem conexão.</string>
+    <string name="favorite_page_title">Favoritos</string>
+    <string name="line_number">Número da linha</string>
+    <string name="marker_days">Atualizado há %1$s dia(s).</string>
+    <string name="marker_hours">Atualizado há %1$s hora(s).</string>
+    <string name="marker_minutes">Atualizado há %1$s minuto(s).</string>
+    <string name="marker_seconds">Atualizado há %1$s segundo(s).</string>
+    <string name="marker_sense">Sentido: %1$s</string>
+    <string name="marker_sense_null">desconhecido</string>
+    <string name="marker_title">%1$s (%2$s)</string>
+    <string name="marker_user">Você está aqui.</string>
+    <string name="marker_velocity">Velocidade: %1$s Km/h</string>
+    <string name="menu_about">Sobre</string>
+    <string name="menu_favorite">Favoritos</string>
+    <string name="menu_rate_this_app">Avalie o Aplicativo</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_history">Histórico</string>
+    <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
+    <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
+    <string name="no_bus_found">Nenhum ônibus encontrado.</string>
+    <string name="searching_data">Pesquisando…</string>
+    <string name="text_sense">Sentido</string>
+    <string name="text_unknown">Desconhecido</string>
+
+    <!-- SEARCH -->
+    <string name="search_page_title">Busca</string>
+
+    <!-- HISTORY -->
+    <string name="history_clear_dialog">Excluir histórico?</string>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
+</resources>

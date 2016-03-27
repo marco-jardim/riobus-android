@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RioBus.History">
+
+    <com.tormentaLabs.riobus.favorite.view.FavoriteStarView_
+        android:id="@+id/historyFavoriteStar"
+        style="@style/RioBus.History.Group.Item.Icon"/>
+
+    <TextView
+        android:id="@+id/historyLineTitle"
+        android:layout_toRightOf="@id/historyFavoriteStar"
+        style="@style/RioBus.History.Group.Item.Title"/>
+
+    <TextView
+        android:id="@+id/historyLineDate"
+        style="@style/RioBus.History.Group.Item.Date"/>
+
+</RelativeLayout>

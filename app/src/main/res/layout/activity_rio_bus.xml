@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/riobusToolbar"
+        style="@style/RioBus.ToolBar"
+        android:elevation="@dimen/riobus_elevation"/>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/rio_bus_drawer_layout"
+        android:layout_below="@id/riobusToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation"
+            style="@style/RioBus.Navigation.View"
+            app:headerLayout="@layout/nav_header"
+            app:itemTextColor="@color/riobus_text"
+            app:itemIconTint="@color/riobus_text"
+            app:menu="@menu/rio_bus_activty"/>
+
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

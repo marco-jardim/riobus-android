@@ -7,21 +7,19 @@
     </style>
 
     <style name="search_map">
-        <item name="android:background">@drawable/rounded_corners_white</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginTop">40dp</item>
         <item name="android:layout_marginRight">15dp</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
-        <item name="android:drawableRight">@drawable/ic_action_search</item>
+        <item name="android:drawableRight">@drawable/ic_search</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:layout_alignParentLeft">true</item>
     </style>
 
     <style name="botao">
-        <item name="android:background">@drawable/rounded_corners_white</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginRight">15dp</item>

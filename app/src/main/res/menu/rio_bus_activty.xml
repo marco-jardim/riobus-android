@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tormentaLabs.riobus.RioBusActivty">
+
+    <group android:checkableBehavior="none">
+        <!--<item android:id="@+id/action_settings" android:title="@string/menu_settings"
+            android:checkable="true" android:icon="@drawable/ic_settings"
+            app:showAsAction="withText|ifRoom" /> -->
+        <item android:id="@+id/action_favorite" android:title="@string/menu_favorite"
+            android:checkable="false" android:icon="@drawable/ic_favorite"
+            app:showAsAction="withText|ifRoom"/>
+        <item android:id="@+id/action_history" android:title="@string/menu_history"
+            android:checkable="false" android:icon="@drawable/ic_history"
+            app:showAsAction="withText|ifRoom"/>
+        <item android:id="@+id/action_about" android:title="@string/menu_about"
+            android:checkable="false" android:icon="@drawable/ic_help"
+            app:showAsAction="withText|ifRoom"/>
+        <item android:id="@+id/action_rate_this_app" android:title="@string/menu_rate_this_app"
+            android:checkable="false" android:icon="@drawable/ic_thumb_up"
+            app:showAsAction="withText|ifRoom" />
+    </group>
+</menu>

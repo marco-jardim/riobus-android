@@ -1,0 +1,33 @@
+<RelativeLayout
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/rioBusProgressBar"
+        style="@style/RioBus.Map.ProgressBar"/>
+
+    <com.tormentaLabs.riobus.map.view.LineMapControllerView_
+        android:id="@+id/lineMapControllerView"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <fragment
+        android:layout_above="@id/lineMapControllerView"
+        android:layout_below="@id/rioBusProgressBar"
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        style="@style/RioBus.Map" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@id/lineMapControllerView"
+        android:id="@+id/userPositionButton"
+        style="@style/RioBus.Map.FloatPositionButton"
+        app:fabSize="normal" />
+
+</RelativeLayout>

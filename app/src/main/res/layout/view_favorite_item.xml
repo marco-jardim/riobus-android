@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RioBus.Favorite.List.ListItem">
+
+    <com.tormentaLabs.riobus.favorite.view.FavoriteStarView_
+        android:id="@+id/itemFavoriteStar"
+        style="@style/RioBus.Favorite.List.Star"/>
+
+    <TextView
+        android:id="@+id/favoriteLine"
+        style="@style/RioBus.Favorite.List.Line"
+        android:layout_alignTop="@+id/itemFavoriteStar"
+        android:layout_toRightOf="@+id/itemFavoriteStar"
+        android:layout_toEndOf="@+id/itemFavoriteStar" />
+
+    <TextView
+        style="@style/RioBus.Favorite.List.Description"
+        android:id="@+id/favoriteLineDescription"
+        android:layout_below="@+id/favoriteLine"
+        android:layout_toRightOf="@+id/itemFavoriteStar"
+        android:layout_toEndOf="@+id/itemFavoriteStar" />
+
+</RelativeLayout>

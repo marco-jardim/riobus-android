@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RioBus.Search.Suggestions.List.Item">
+
+    <TextView
+        android:id="@+id/searchSuggestionItemTitle"
+        style="@style/RioBus.Search.Suggestions.List.Item.Title"/>
+
+    <TextView
+        android:layout_below="@id/searchSuggestionItemTitle"
+        android:id="@+id/searchSuggestionItemSubTitle"
+        style="@style/RioBus.Search.Suggestions.List.Item.SubTitle"
+        android:layout_toLeftOf="@+id/searchSuggestionItemIcon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/searchSuggestionItemIcon"
+        style="@style/RioBus.Search.Suggestions.List.Item.Icon" />
+
+</RelativeLayout>

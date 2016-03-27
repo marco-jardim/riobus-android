@@ -1,13 +1,6 @@
-riobus-android
-==============
+RioBus
+======
 
-
-Rio de Janeiro Android app for bus geolocalization
-
-
-http://riob.us
-
-Os dados são oferecidos publicamente pela prefeitura do Rio de Janeiro, em parceria com a FETRANSPOR e Iplanrio. A posição dos ônibus são recuparadas pelo GPS embarcado neles, enviados para a FETRANSPOR e, por fim, a Iplanrio a disponibiliza na página do projeto de dados abertos Data.Rio.
-
-Para resolver dependências e compilar use o Android Studio.
-
+RioBus is an open-source and collaborative realtime bus fleet tracking system.
+This project is an Android app used by the users to track the fleet in realtime.
+For further information, check our [wiki](https://github.com/RioBus/android/wiki).
