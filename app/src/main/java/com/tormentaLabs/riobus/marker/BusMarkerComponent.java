@@ -2,7 +2,6 @@ package com.tormentaLabs.riobus.marker;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -42,9 +41,9 @@ import java.util.List;
  * Created on 02/09/15.
  */
 @EBean
-public class BusMarkerConponent extends MapComponent {
+public class BusMarkerComponent extends MapComponent {
 
-    private static final String TAG = BusMarkerConponent.class.getName();
+    private static final String TAG = BusMarkerComponent.class.getName();
     private static final String BUSES_UPDATE_THREAD_ID = "auto_update";
     private static final String GET_BUSES_THREAD_ID = "get_buses";
 
