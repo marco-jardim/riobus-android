@@ -1,8 +1,6 @@
 package com.tormentaLabs.riobus.marker;
 
-import android.app.Activity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -11,8 +9,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tormentaLabs.riobus.R;
+import com.tormentaLabs.riobus.core.controller.LineController;
+import com.tormentaLabs.riobus.core.model.LineModel;
 import com.tormentaLabs.riobus.map.bean.MapComponent;
-import com.tormentaLabs.riobus.marker.adapter.BusInfoWindowAdapter;
 import com.tormentaLabs.riobus.marker.model.BusModel;
 import com.tormentaLabs.riobus.marker.service.BusService;
 import com.tormentaLabs.riobus.marker.service.BusServiceErrorHandler;
@@ -37,6 +36,7 @@ import java.util.List;
 
 /**
  * Class used to manage the buses of some given number to the map as a component.
+ *
  * @author limazix
  * @since 2.0
  * Created on 02/09/15.
@@ -44,7 +44,7 @@ import java.util.List;
 @EBean
 public class BusMarkerConponent extends MapComponent {
 
-    private static final String TAG = BusMarkerConponent.class.getName();
+    private static final String TAG = BusMarkerConponent_.class.getName();
     private static final String BUSES_UPDATE_THREAD_ID = "auto_update";
     private static final String GET_BUSES_THREAD_ID = "get_buses";
 
@@ -54,10 +54,17 @@ public class BusMarkerConponent extends MapComponent {
     private static final boolean INTERRUPT_IF_RUNNING = true;
 
     private boolean isAutoUpdate = false;
+    private boolean ignoreSense = false;
+    private LatLngBounds.Builder boundsBuilder;
     private List<Marker> markers = new ArrayList<>();
+    private List<BusModel> buses;
+    private List<LineModel> lines;
 
     @RestService
     BusService busService;
+
+    @Bean
+    LineController lineController;
 
     @Bean
     BusServiceErrorHandler busServiceErrorHandler;
@@ -67,15 +74,25 @@ public class BusMarkerConponent extends MapComponent {
         busService.setRestErrorHandler(busServiceErrorHandler);
     }
 
-    private LatLngBounds.Builder boundsBuilder;
+    public List<LineModel> getLines() {
+        return lines;
+    }
 
     @Override
-    public void buildComponent() {
+    public void prepareComponent() {
         isAutoUpdate = false;
         shutdownAutoUpdate();
         boundsBuilder = new LatLngBounds.Builder();
-        getMap().setInfoWindowAdapter(new BusInfoWindowAdapter((Activity) getContext()));
         getBusesByLine();
+    }
+
+    @Override
+    public void buildComponent() {
+        removeMarkers();
+        addMarkers(buses);
+        autoUpdateBusesPosition();
+        if(!isBuildcomplete()) getListener().onComponentBuildComplete(TAG);
+        setIsBuildcomplete(true);
     }
 
     @Override
@@ -88,6 +105,9 @@ public class BusMarkerConponent extends MapComponent {
     void autoUpdateBusesPosition() {
         isAutoUpdate = true;
         getBusesByLine();
+        removeMarkers();
+        addMarkers(buses);
+        autoUpdateBusesPosition();
     }
 
     /**
@@ -95,23 +115,38 @@ public class BusMarkerConponent extends MapComponent {
      */
     @Background(id = GET_BUSES_THREAD_ID)
     void getBusesByLine() {
-        List<BusModel> buses = busService.getBusesByLine(getLine().number);
+        buses = busService.getBusesByLine(getQuery());
 
         if (buses != null) {
-            if(!buses.isEmpty()) {
-                removeMarkers();
-                addMarkers(buses);
-                autoUpdateBusesPosition();
-                if(!isAutoUpdate) getListener().onComponentMapReady(TAG);
-            } else {
+            if(buses.isEmpty()) {
                 String message = getContext().getResources().getString(R.string.no_bus_found);
                 getListener().onComponentMapError(message, TAG);
-            }
+                if(isAutoUpdate) shutdownAutoUpdate();
+            } else storeLines();
         } else {
             String message = getContext().getResources().getString(R.string.error_connection_server);
             getListener().onComponentMapError(message, TAG);
         }
 
+    }
+
+    /**
+     * Method used to store all lines found to DB
+     */
+    private void storeLines() {
+        lines = new ArrayList<>();
+        ArrayList<String> lineNumbers = new ArrayList<>();
+
+        for(BusModel bus : buses) {
+            if(!lineNumbers.contains(bus.getLine())) {
+                LineModel line = lineController.createIfNotExists(bus.getLine());
+                lines.add(line);
+                lineNumbers.add(bus.getLine());
+            }
+        }
+
+        if(lines.size() > 1) ignoreSense = true;
+        if(!isAutoUpdate) getListener().onComponentMapReady(TAG);
     }
 
     /**
@@ -121,10 +156,15 @@ public class BusMarkerConponent extends MapComponent {
     @UiThread
     void addMarkers(List<BusModel> buses) {
         for (BusModel bus : buses) {
-           Marker marker = getMap().addMarker(getMarker(bus));
-            markers.add(marker);
+            if(!isReverseSense() && bus.getSense().equals(getSense()) ||
+                    isReverseSense() && !bus.getSense().equals(getSense()) ||
+                    ignoreSense) {
+                Marker marker = getMap().addMarker(getMarker(bus));
+                markers.add(marker);
+            }
         }
-        if(!isAutoUpdate) getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), BOUNDS_PADDING));
+        if (!isAutoUpdate)
+            getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), BOUNDS_PADDING));
     }
 
     /**
@@ -132,7 +172,7 @@ public class BusMarkerConponent extends MapComponent {
      */
     @UiThread
     void removeMarkers() {
-        for(Marker m : markers)
+        for (Marker m : markers)
             m.remove();
         markers.clear();
     }
@@ -147,11 +187,13 @@ public class BusMarkerConponent extends MapComponent {
 
     /**
      * Used to build the bus marker based on its features
+     *
      * @param bus
      * @return MarkerOptions the bus marker
      */
     private MarkerOptions getMarker(BusModel bus) {
         MarkerOptions options = MarkerUtils.createMarker(bus.getLatitude(), bus.getLongitude());
+        options.title(bus.getLine());
         options.icon(getIcon(bus.getTimeStamp()));
         options.snippet(bus.toString());
         boundsBuilder.include(options.getPosition());
@@ -160,6 +202,7 @@ public class BusMarkerConponent extends MapComponent {
 
     /**
      * Used to get the bus marker icon based on its last update position time
+     *
      * @param timestamp Bus last update position time
      * @return BitmapDescriptor bus marker icon
      */

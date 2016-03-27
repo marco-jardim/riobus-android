@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.tormentaLabs.riobus.map.bean.MapComponent;
 import com.tormentaLabs.riobus.marker.utils.MarkerUtils;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 /**
@@ -43,7 +44,6 @@ public class UserMarkerComponent extends MapComponent implements
 
     @UiThread
     public void updateUserLocation() {
-
         if(!isApiReady) {
             setupGoogleApiClient();
             return;
@@ -63,12 +63,22 @@ public class UserMarkerComponent extends MapComponent implements
     }
 
     @Override
+    public void prepareComponent() {
+
+    }
+
+    @Override
     public void buildComponent() {
-        setupGoogleApiClient();
+         setupGoogleApiClient();
     }
 
     @Override
     public void removeComponent() {
+
+    }
+
+    @Override
+    public void toggleSense() {
 
     }
 

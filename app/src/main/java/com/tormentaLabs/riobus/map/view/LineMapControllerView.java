@@ -2,8 +2,6 @@ package com.tormentaLabs.riobus.map.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,13 +11,14 @@ import com.tormentaLabs.riobus.core.model.LineModel;
 import com.tormentaLabs.riobus.favorite.view.FavoriteStarView;
 
 import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 /**
  * Created by limazix on 14/01/16.
  */
 @EViewGroup(R.layout.view_line_map_controller)
-public class LineMapControllerView extends RelativeLayout implements View.OnClickListener {
+public class LineMapControllerView extends RelativeLayout {
 
     private static final String TAG = LineMapControllerView.class.getName();
     private LineModel line;
@@ -51,7 +50,6 @@ public class LineMapControllerView extends RelativeLayout implements View.OnClic
     public void build(LineModel line) {
         this.line = line;
         favoriteStarView.build(line);
-        changeSenseButton.setOnClickListener(this);
         buildEndPoints();;
     }
 
@@ -71,8 +69,13 @@ public class LineMapControllerView extends RelativeLayout implements View.OnClic
         }
     }
 
-    @Override
-    public void onClick(View view) {
+    @UiThread(propagation = UiThread.Propagation.REUSE)
+    public void toggleSense() {
+        if(line.description == null) return;
 
+        CharSequence tmp = firstLineEndPoint.getText();
+        firstLineEndPoint.setText(secondLineEndPoint.getText());
+        secondLineEndPoint.setText(tmp);
     }
+
 }

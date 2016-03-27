@@ -21,12 +21,50 @@ public abstract class MapComponent {
     @RootContext
     public Context context;
 
+    private String query;
     private LineModel line;
     private MapComponentListener listener;
     private GoogleMap map;
+    private String sense;
+    private boolean reverseSense = false;
+    private boolean isBuildcomplete = false;
 
     public Context getContext() {
         return context;
+    }
+
+    public boolean isBuildcomplete() {
+        return isBuildcomplete;
+    }
+
+    public void setIsBuildcomplete(boolean isBuildcomplete) {
+        this.isBuildcomplete = isBuildcomplete;
+    }
+
+    public boolean isReverseSense() {
+        return reverseSense;
+    }
+
+    public void setReverseSense(boolean reverseSense) {
+        this.reverseSense = reverseSense;
+    }
+
+    public String getSense() {
+        return sense;
+    }
+
+    public MapComponent setSense(String sense) {
+        this.sense = sense;
+        return this;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public MapComponent setQuery(String query) {
+        this.query = query;
+        return this;
     }
 
     public LineModel getLine() {
@@ -56,7 +94,14 @@ public abstract class MapComponent {
         return this;
     }
 
+    public abstract void prepareComponent();
+
     public abstract void buildComponent();
 
     public abstract void removeComponent();
+
+    public void toggleSense() {
+        reverseSense = !reverseSense;
+        buildComponent();
+    }
 }
