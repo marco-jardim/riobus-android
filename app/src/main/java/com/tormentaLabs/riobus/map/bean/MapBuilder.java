@@ -30,6 +30,7 @@ public class MapBuilder implements MapComponentListener {
     private static final int FIRST_ITEM_INDEX = 0;
     private String query;
     private LineModel line;
+    private String sense;
     private GoogleMap map;
     private MapBuilderListener listener;
 
@@ -55,11 +56,19 @@ public class MapBuilder implements MapComponentListener {
                 .buildComponent();
     }
 
+    public void toggleSense() {
+        busMapComponent.toggleSense();
+        itineraryComponent.toggleSense();
+    }
+
     /**
      * Method to be called to start the construction process of the map's components
      */
     public void buildMap() {
         line = null;
+        sense = "";
+        busMapComponent.setReverseSense(false);
+        itineraryComponent.setReverseSense(false);
         prepareNextComponent(busMapComponent);
     }
 
@@ -90,6 +99,8 @@ public class MapBuilder implements MapComponentListener {
                 prepareNextComponent(itineraryComponent);
             }
         } else if(componentId.equals(itineraryComponent.getClass().getName())) {
+            sense = itineraryComponent.getSense();
+            busMapComponent.setSense(sense);
             buildNextComponent(busMapComponent);
         } else if(componentId.equals(userMarkerComponent.getClass().getName())) {
             listener.onCenterComplete();

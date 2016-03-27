@@ -14,7 +14,7 @@ public class SpotModel {
     private Double longitude;
 
     @JsonProperty("returning")
-    private String returning;
+    private boolean returning;
 
     public SpotModel() {
     }
@@ -35,11 +35,11 @@ public class SpotModel {
         this.longitude = longitude;
     }
 
-    public String getReturning() {
+    public boolean isReturning() {
         return returning;
     }
 
-    public void setReturning(String returning) {
+    public void setReturning(boolean returning) {
         this.returning = returning;
     }
 }

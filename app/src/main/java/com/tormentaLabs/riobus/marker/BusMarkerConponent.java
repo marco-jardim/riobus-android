@@ -54,6 +54,7 @@ public class BusMarkerConponent extends MapComponent {
     private static final boolean INTERRUPT_IF_RUNNING = true;
 
     private boolean isAutoUpdate = false;
+    private boolean ignoreSense = false;
     private LatLngBounds.Builder boundsBuilder;
     private List<Marker> markers = new ArrayList<>();
     private List<BusModel> buses;
@@ -144,19 +145,23 @@ public class BusMarkerConponent extends MapComponent {
             }
         }
 
+        if(lines.size() > 1) ignoreSense = true;
         if(!isAutoUpdate) getListener().onComponentMapReady(TAG);
     }
 
     /**
      * Used to add a marker for each buson map
-     *
      * @param buses List of buses
      */
     @UiThread
     void addMarkers(List<BusModel> buses) {
         for (BusModel bus : buses) {
-            Marker marker = getMap().addMarker(getMarker(bus));
-            markers.add(marker);
+            if(!isReverseSense() && bus.getSense().equals(getSense()) ||
+                    isReverseSense() && !bus.getSense().equals(getSense()) ||
+                    ignoreSense) {
+                Marker marker = getMap().addMarker(getMarker(bus));
+                markers.add(marker);
+            }
         }
         if (!isAutoUpdate)
             getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), BOUNDS_PADDING));

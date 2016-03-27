@@ -25,9 +25,28 @@ public abstract class MapComponent {
     private LineModel line;
     private MapComponentListener listener;
     private GoogleMap map;
+    private String sense;
+    private boolean reverseSense = false;
 
     public Context getContext() {
         return context;
+    }
+
+    public boolean isReverseSense() {
+        return reverseSense;
+    }
+
+    public void setReverseSense(boolean reverseSense) {
+        this.reverseSense = reverseSense;
+    }
+
+    public String getSense() {
+        return sense;
+    }
+
+    public MapComponent setSense(String sense) {
+        this.sense = sense;
+        return this;
     }
 
     public String getQuery() {
@@ -72,4 +91,8 @@ public abstract class MapComponent {
 
     public abstract void removeComponent();
 
+    public void toggleSense() {
+        reverseSense = !reverseSense;
+        buildComponent();
+    }
 }

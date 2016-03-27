@@ -32,7 +32,7 @@ public class ItineraryComponent extends MapComponent {
     private static final String TAG = ItineraryComponent_.class.getName();
     private static final float LINE_WIDTH = 12;
     private Polyline polyline = null;
-    ItineraryModel itinerary;
+    private ItineraryModel itinerary;
 
     @RestService
     ItineraryService itineraryService;
@@ -54,6 +54,7 @@ public class ItineraryComponent extends MapComponent {
 
         if(itinerary == null) return;
 
+        setSense(itinerary.getDescription());
         getLine().description = itinerary.getDescription();
         getLine().save();
 
@@ -80,8 +81,11 @@ public class ItineraryComponent extends MapComponent {
         if(itinerary == null) return;
         ArrayList<LatLng> spots = new ArrayList<>();
         for(SpotModel spot : itinerary.getSpots()) {
-            LatLng position = new LatLng(spot.getLatitude(), spot.getLongitude());
-            spots.add(position);
+            if(!isReverseSense() && !spot.isReturning() ||
+                    isReverseSense() && spot.isReturning()) {
+                LatLng position = new LatLng(spot.getLatitude(), spot.getLongitude());
+                spots.add(position);
+            }
         }
         drawItinerary(spots);
         getListener().onComponentBuildComplete(TAG);
@@ -93,4 +97,5 @@ public class ItineraryComponent extends MapComponent {
         if(polyline != null && polyline.isVisible())
             polyline.remove();
     }
+
 }
